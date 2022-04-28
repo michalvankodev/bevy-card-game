@@ -5,4 +5,29 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
+[dependencies.bevy]
+version = "0.7" 
+default-features = false
+features = [
+  "render",
+  "animation",
+  "bevy_winit",
+  "bevy_gilrs",
+  "png",
+  "hdr",
+  "filesystem_watcher",
+  "dynamic", 
+  "wayland"
+] 
+
+[dependencies.bevy_kira_audio]
+version = "0.9.0"
+# `ogg` format support is enabled by default, disable if you don't want it
+default-features = false
+# enable the features you care about
+features = [
+  "wav",
+  "flac",
+  "mp3",
+  "ogg",
+]
