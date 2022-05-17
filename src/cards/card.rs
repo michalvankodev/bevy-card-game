@@ -21,6 +21,8 @@ pub fn create_cards_pack(mut commands: Commands) {
     commands.spawn().insert(Cards).insert(Name::new("Cards"));
 }
 
+// TODO Spawn cards only on panel // learning purposes
+
 pub fn create_card(
     mut commands: Commands,
     query: Query<(Entity, &Cards)>,

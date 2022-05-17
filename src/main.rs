@@ -1,10 +1,9 @@
 use bevy::prelude::*;
 use bevy_inspector_egui::{RegisterInspectable, WorldInspectorPlugin};
 
-mod card;
-mod card_panel;
+mod cards;
 mod scene_setup;
-use card::{Card, Cards};
+use cards::card::{Card, Cards};
 
 fn main() {
    App::new()
@@ -16,11 +15,9 @@ fn main() {
       })
       .add_plugins(DefaultPlugins)
       .add_plugin(WorldInspectorPlugin::new())
+      .add_plugin(cards::card_plugin::CardPlugin)
       .register_inspectable::<Card>()
       .register_type::<Cards>()
       .add_startup_system(scene_setup::setup)
-      .add_startup_system(card_panel::setup)
-      .add_startup_system(card::create_cards_pack)
-      .add_system(card::create_card)
       .run();
 }

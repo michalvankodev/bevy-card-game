@@ -13,7 +13,14 @@ pub fn setup(
     box_transform.rotate(Quat::from_rotation_x(0.22));
 
     commands.spawn_bundle(PbrBundle {
-        mesh: meshes.add(Mesh::from(shape::Box { min_x: -5.0, max_x: 5.0, min_y: 3.0, max_y: 3.0, min_z: 2.5, max_z: 5.0 })),
+        mesh: meshes.add(Mesh::from(shape::Box {
+            min_x: -5.0,
+            max_x: 5.0,
+            min_y: 3.0,
+            max_y: 3.0,
+            min_z: 2.5,
+            max_z: 5.0,
+        })),
         material: materials.add(Color::rgb(0.2, 0.7, 0.6).into()),
         transform: Transform::from_rotation(Quat::from_rotation_x(0.50)),
         ..default()
