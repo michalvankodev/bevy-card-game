@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy_mod_picking::PickingCameraBundle;
 
 pub fn setup(
     mut commands: Commands,
@@ -7,7 +8,7 @@ pub fn setup(
 ) {
     // plane
     commands.spawn_bundle(PbrBundle {
-        mesh: meshes.add(Mesh::from(shape::Plane { size: 10.0  })),
+        mesh: meshes.add(Mesh::from(shape::Plane { size: 10.0 })),
         material: materials.add(Color::rgb(0.3, 0.5, 0.3).into()),
         ..default()
     });
@@ -29,9 +30,10 @@ pub fn setup(
         ..default()
     });
     // camera
-    
     let mut camera = OrthographicCameraBundle::new_3d();
     camera.orthographic_projection.scale = 4.0;
     camera.transform = Transform::from_xyz(0.0, 10.0, 7.0).looking_at(Vec3::Z, Vec3::Y);
-    commands.spawn_bundle(camera);
+    commands
+        .spawn_bundle(camera)
+        .insert_bundle(PickingCameraBundle::default());
 }

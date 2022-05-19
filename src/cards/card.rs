@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 use bevy_inspector_egui::Inspectable;
+use bevy_mod_picking::PickableBundle;
 
 #[derive(Reflect, Component)]
 pub struct Cards;
@@ -23,14 +24,19 @@ pub fn create_cards_pack(mut commands: Commands) {
 
 // TODO Spawn cards only on panel // learning purposes
 
+pub struct SpawnCardEvent;
+
+/**
+ * Spawn cards on event
+ */
 pub fn create_card(
+    mut ev_spawn_card: EventReader<SpawnCardEvent>,
     mut commands: Commands,
     query: Query<(Entity, &Cards)>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
-    buttons: Res<Input<MouseButton>>,
 ) {
-    if buttons.just_pressed(MouseButton::Left) {
+    for ev in ev_spawn_card.iter() {
         let (cards_entity, _cards) = query.get_single().unwrap();
         commands
             .spawn_bundle(CardBundle {
@@ -51,6 +57,7 @@ pub fn create_card(
                     ..default()
                 },
             })
-            .insert(Parent(cards_entity));
+            .insert(Parent(cards_entity))
+            .insert_bundle(PickableBundle::default());
     }
 }
